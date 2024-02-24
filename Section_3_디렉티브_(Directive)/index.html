@@ -11,19 +11,15 @@
       const root = {
         template: `
           <nav>
-            <!--
-              (중요)실행순서
-              v-if => v-for => v-show
-              v-if 쓰면 for가 먼저 실행되서 오류남
-            -->
-            <a
-              v-for="value of menu"
-              v-show="value.length > 3"
-              :href="value.toLowerCase()"
-              :key="value"
-            >
-              {{value}}
-            </a>
+            <template v-for="value of menu" :key="value">
+              <a
+                v-if="value.length > 3"
+                :href="value.toLowerCase()"
+                :key="value"
+              >
+                {{value}}
+              </a>
+            </template>
           </nav>
         `,
         setup() {
