@@ -3,21 +3,23 @@
   <body>
     <div id="app"></div>
     <script type="module">
-      import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+      import {
+        createApp,
+        reactive,
+      } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
 
       const root = {
         template: `
-          <h1>{{myGreet}}</h1>
-          <h1 v-bind:class="myGreet">dd</h1>
+          <h1>{{proxy.quiz}}</h1>
         `,
         setup() {
-          const greet = '안녕'
-          const sayHi = () => {
-            alert('안뇽')
-          }
+          let proxy = reactive({ quiz: '서울디지텍고의 이사장은?' })
+          setTimeout(() => {
+            proxy.quiz = '곽일천'
+          }, 3000)
 
           return {
-            myGreet: greet,
+            proxy,
           }
         },
       }
