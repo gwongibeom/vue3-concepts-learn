@@ -11,9 +11,13 @@
       const root = {
         template: `
           <nav>
-            <a :href="menu[0].toLowerCase()">{{ menu[0] }}</a>
-            <a :href="menu[1].toLowerCase()">{{ menu[1] }}</a>
-            <a :href="menu[2].toLowerCase()">{{ menu[2] }}</a>
+            <a 
+              v-for="value of menu"
+              :href="value.toLowerCase()"
+              :key="value"
+            >
+              {{value}}
+            </a>
           </nav>
         `,
         setup() {
