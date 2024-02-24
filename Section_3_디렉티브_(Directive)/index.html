@@ -21,12 +21,15 @@
                 {{value}}
               </a>
           </nav>
+          <input v-model.lazy="search.value"/>
           <h2>{{selectedMenu.value}}</h2>
+          <h2 v-if="search.value">{{"검색결과 "+ search.value}}</h2>
         `,
         setup() {
           const menu = ['HTML', 'CSS', 'Javascript']
           return {
             menu,
+            search: reactive({ value: '' }),
             selectedMenu: reactive({ value: 'HTML' }),
           }
         },
