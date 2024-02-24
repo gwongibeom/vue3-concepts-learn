@@ -11,21 +11,23 @@
       const root = {
         template: `
           <nav>
-            <template v-for="value of menu" :key="value">
               <a
-                v-if="value.length > 3"
+                v-for="value of menu"
+                v-on:click.prevent="selectedMenu.value = value"
+                :key="value"
                 :href="value.toLowerCase()"
                 :key="value"
               >
                 {{value}}
               </a>
-            </template>
           </nav>
+          <h2>{{selectedMenu.value}}</h2>
         `,
         setup() {
           const menu = ['HTML', 'CSS', 'Javascript']
           return {
             menu,
+            selectedMenu: reactive({ value: 'HTML' }),
           }
         },
       }
