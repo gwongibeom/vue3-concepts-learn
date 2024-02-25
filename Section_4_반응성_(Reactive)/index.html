@@ -8,6 +8,7 @@
         reactive,
         ref,
         computed,
+        watch,
       } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
 
       const root = {
@@ -22,22 +23,30 @@
                 {{value}}
               </a>
           </nav>
-          <input v-model.lazy="search"/>
           <h2>{{selectedMenu}}</h2>
-          <h2 v-if="search">{{searchResult}}</h2>
+          <h2>{{data}}</h2>
         `,
         setup() {
-          const menu = ['HTML', 'CSS', 'Javascript']
-          const search = ref('')
+          const menu = ['todos', 'posts', 'users']
+          const selectedMenu = ref(menu[0])
+          const data = ref(null)
+
+          watch(
+            selectedMenu,
+            () => {
+              fetch(
+                'https://jsonplaceholder.typicode.com/' + selectedMenu.value
+              )
+                .then((response) => response.json())
+                .then((json) => (data.value = json))
+            },
+            { immediate: true }
+          )
 
           return {
             menu,
-            search,
-            selectedMenu: ref('HTML'),
-            searchResult: computed(function () {
-              console.log('실행!')
-              return '검색결과 ' + search.value
-            }),
+            selectedMenu,
+            data,
           }
         },
       }
